@@ -2,14 +2,14 @@
  * Primary file for the API
  */
 
-const http = require('http');
-const url = require('url');
+import { createServer } from 'http';
+import { parse } from 'url';
 
 
-const server = http.createServer((req, res) => {
+const server = createServer((req, res) => {
 
     // Get the url and parse it
-    let parsedUrl = url.parse(req.url, true);
+    let parsedUrl = parse(req.url, true);
 
     // Get the path
     let path = parsedUrl.pathname;
