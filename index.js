@@ -54,8 +54,8 @@ const server = http.createServer((req, res) => {
             statusCode = typeof (statusCode) == 'number' ? statusCode : 200;
 
             // Return an empty object if the payload is not an object
-            responsePayload = typeof(responsePayload) == 'object' ? responsePayload : {};
-            
+            responsePayload = typeof (responsePayload) == 'object' ? responsePayload : {};
+
             // Convert the payload object into string
             let payloadString = JSON.stringify(responsePayload);
 
@@ -77,17 +77,13 @@ server.listen(config.port, () => console.log(`Listening on port ${config.port} i
 
 // Define request handlers
 const handlers = {
-    // Handler for sample route
-    sample: (data, callback) => {
-        console.log(data)
-        callback(406, { 'name': 'sampleHandler' });
+    // Handler for ping route
+    ping: (data, callback) => {
+        callback(200);
     },
 
     // Handler for all request coming to unknown paths
-    notFound: (data, callback) => {
-        console.log(data)
-        callback(404)
-    }
+    notFound: (data, callback) => callback(404)
 }
 
 // Define the request routers
