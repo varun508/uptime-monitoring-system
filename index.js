@@ -50,13 +50,13 @@ const server = http.createServer((req, res) => {
         chosenHandler(data, (statusCode, responsePayload) => {
 
             // Set the statusCode to 200 HTTP_OK when the statusCode is of type other than the number
-            statusCode = typeof (statusCode) !== 'number' ? statusCode : 200;
+            statusCode = typeof (statusCode) == 'number' ? statusCode : 200;
 
             // Return an empty object if the payload is not an object
-            responsePayload = typeof(responsePayload) !== 'object' ? responsePayload : {};
+            responsePayload = typeof(responsePayload) == 'object' ? responsePayload : {};
             
             res.writeHead(statusCode);
-            res.end(responsePayload);
+            res.end(JSON.stringify(responsePayload));
         })
 
         res.end(buffer);
@@ -71,11 +71,13 @@ server.listen(3000, () => console.log(`Listening on port 3000..`))
 const handlers = {
     // Handler for sample route
     sample: (data, callback) => {
-        callback(406, '{ name: sampleHadler }');
+        console.log(data)
+        callback(406, { 'name': 'sampleHandler' });
     },
 
     // Handler for all request coming to unknown paths
     notFound: (data, callback) => {
+        console.log(data)
         callback(404)
     }
 }
