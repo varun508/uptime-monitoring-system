@@ -5,6 +5,7 @@
 const http = require('http');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
+const config = require('./config');
 
 
 const server = http.createServer((req, res) => {
@@ -49,14 +50,21 @@ const server = http.createServer((req, res) => {
 
         chosenHandler(data, (statusCode, responsePayload) => {
 
-            // Set the statusCode to 200 HTTP_OK when the statusCode is of type other than the number
+            // Set the status code to 200 HTTP_OK when the statusCode is of type other than the number
             statusCode = typeof (statusCode) == 'number' ? statusCode : 200;
 
             // Return an empty object if the payload is not an object
             responsePayload = typeof(responsePayload) == 'object' ? responsePayload : {};
             
+            // Convert the payload object into string
+            let payloadString = JSON.stringify(responsePayload);
+
+            // Send the response as JSON
+            res.setHeader('Content-Type', 'application/json');
+
+            // Set the status code to response and return the response
             res.writeHead(statusCode);
-            res.end(JSON.stringify(responsePayload));
+            res.end(payloadString);
         })
 
         res.end(buffer);
@@ -65,7 +73,7 @@ const server = http.createServer((req, res) => {
 
 
 // Make the server listen to requests on port 3000
-server.listen(3000, () => console.log(`Listening on port 3000..`))
+server.listen(config.port, () => console.log(`Listening on port ${config.port} in ${config.envName} mode...`))
 
 // Define request handlers
 const handlers = {
