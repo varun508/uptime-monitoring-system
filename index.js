@@ -80,8 +80,9 @@ const handlers = {
 
     // Handler for ping route
     ping: (data, callback) => {
-        _data.create('dir', 'newFile', { 'name': 'varun' }, err => {
-            console.log(err) 
+        _data.read('dir', 'newFile1', (err, data) => {
+            console.log(err)
+            console.log(data)
         })
         callback(200);
     },
