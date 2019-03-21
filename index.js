@@ -6,7 +6,7 @@ const http = require('http');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
-
+const _data = require('./lib/data');
 
 const server = http.createServer((req, res) => {
 
@@ -77,8 +77,12 @@ server.listen(config.port, () => console.log(`Listening on port ${config.port} i
 
 // Define request handlers
 const handlers = {
+
     // Handler for ping route
     ping: (data, callback) => {
+        _data.create('dir', 'newFile', { 'name': 'varun' }, err => {
+            console.log(err) 
+        })
         callback(200);
     },
 
@@ -88,5 +92,5 @@ const handlers = {
 
 // Define the request routers
 const router = {
-    'sample': handlers.sample
+    'ping': handlers.ping
 }
