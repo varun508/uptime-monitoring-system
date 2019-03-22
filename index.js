@@ -47,7 +47,7 @@ const server = http.createServer((req, res) => {
             'path': trimmedPath,
             'payload': helpers.parseJsonToObject(buffer),
             'headers': headers,
-            'queryObjects': queryStringObject,
+            'queryStringObject': queryStringObject,
             'method': method
         }
 
