@@ -2,11 +2,14 @@
  * Primary file for the API
  */
 
+// Dependencies
 const http = require('http');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
 const handlers = require('./lib/handlers');
+const helpers = require('./lib/helpers');
+
 
 const server = http.createServer((req, res) => {
 
@@ -42,7 +45,7 @@ const server = http.createServer((req, res) => {
         // Bundle all the extracted data parts in an Object
         let data = {
             'path': trimmedPath,
-            'payload': buffer,
+            'payload': helpers.parsoJsonToObject(buffer),
             'headers': headers,
             'queryObjects': queryStringObject,
             'method': method
