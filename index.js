@@ -69,8 +69,6 @@ const server = http.createServer((req, res) => {
             res.writeHead(statusCode);
             res.end(payloadString);
         })
-
-        res.end(buffer);
     });
 })
 
