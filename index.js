@@ -6,7 +6,7 @@ const http = require('http');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
 const config = require('./config');
-const _data = require('./lib/data');
+const handlers = require('./lib/handlers');
 
 const server = http.createServer((req, res) => {
 
@@ -75,23 +75,8 @@ const server = http.createServer((req, res) => {
 // Make the server listen to requests on port 3000
 server.listen(config.port, () => console.log(`Listening on port ${config.port} in ${config.envName} mode...`))
 
-// Define request handlers
-const handlers = {
-
-    // Handler for ping route
-    ping: (data, callback) => {
-        _data.read('dir', 'newFile1', (err, data) => {
-            console.log(err)
-            console.log(data)
-        })
-        callback(200);
-    },
-
-    // Handler for all request coming to unknown paths
-    notFound: (data, callback) => callback(404)
-}
-
 // Define the request routers
 const router = {
-    'ping': handlers.ping
+    'ping': handlers.ping,
+    'users': handlers.users
 }
