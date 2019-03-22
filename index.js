@@ -45,7 +45,7 @@ const server = http.createServer((req, res) => {
         // Bundle all the extracted data parts in an Object
         let data = {
             'path': trimmedPath,
-            'payload': helpers.parsoJsonToObject(buffer),
+            'payload': helpers.parseJsonToObject(buffer),
             'headers': headers,
             'queryObjects': queryStringObject,
             'method': method
